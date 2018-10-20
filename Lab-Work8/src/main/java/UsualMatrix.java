@@ -1,43 +1,55 @@
 public class UsualMatrix {
     private int[][] matrix;
-
+    private  int row;
+    private int column;
     UsualMatrix(int row, int column) {
+        this.row = row;
+        this.column = column;
         matrix = new int[row][column];
     }
 
     UsualMatrix(UsualMatrix obj) {
         matrix = new int[obj.getSizeRow()][obj.getSizeColumn()];
+        row = obj.getSizeRow();
+        column = getSizeColumn();
         for (int i = 0; i < obj.getSizeRow(); i++) {
             System.arraycopy(obj.matrix[i], 0, matrix[i], 0, obj.getSizeColumn());
         }
     }
+     int getRow(){
+        return row;
+     }
 
-    public void sum(UsualMatrix obj) {
+     int getColumn(){
+        return column;
+     }
+    public UsualMatrix sum(UsualMatrix obj) {
         if (getSizeColumn() != obj.getSizeColumn() && getSizeRow() != obj.getSizeRow())
             throw new RuntimeException("Error! The matrix have different sizes!");
-
+        UsualMatrix result = new UsualMatrix(row,column);
         for (int i = 0; i < getSizeRow(); i++) {
             for (int j = 0; j < getSizeColumn(); j++) {
-                matrix[i][j] += obj.matrix[i][j];
+                result.setElement(i,j,matrix[i][j] + obj.getElement(i,j) );
             }
         }
+        return result;
     }
 
-    public void product(UsualMatrix obj) {
+    public UsualMatrix product(UsualMatrix obj) {
         if (getSizeColumn() != obj.getSizeRow())
-            throw new RuntimeException("Error! The matrix have different sizes!");
+            throw new RuntimeException("Error! Product of matrices with these sizes is undefined!");
 
-        int result[][] = new int[getSizeRow()][obj.getSizeColumn()];
+        UsualMatrix result = new UsualMatrix(row,obj.getColumn());
 
         for (int i = 0; i < getSizeRow(); i++) {
             for (int j = 0; j < obj.getSizeColumn(); j++) {
                 for (int k = 0; k < obj.getSizeRow(); k++) {
-                    result[i][j] += matrix[i][k] * obj.matrix[k][j];
+                    result.setElement(i,j, result.getElement(i,j)+ matrix[i][k] * obj.getElement(k,j));
                 }
             }
         }
 
-        matrix = result;
+        return result;
     }
 
     public void setElement(int row, int column, int value) {
