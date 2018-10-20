@@ -32,5 +32,6 @@ class Main {
         time= (float) ((finish - start) * 1.0 / 1000000000);
         System.out.println("Time onethreaded: " + time + "s");
         System.out.println(result.equals(ParallelMatrixTest));
+        System.out.println("Finish!");
     }
 }
