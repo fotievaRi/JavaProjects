@@ -1,46 +1,30 @@
-import java.io.*;
-import java.net.*;
-import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.util.Scanner;
 
-class Client extends Thread {
-    private String name ="someone";
-    private DatagramSocket clientSocket;
+class Client  {
 
-    public void run() {
-        try {
-            while (true) {
-
-                byte[] receiveData = new byte[1024];
-                DatagramPacket receivePacket = new DatagramPacket(receiveData, receiveData.length);
-                clientSocket.receive(receivePacket);
-                String modifiedSentence = new String(receivePacket.getData());
-                System.out.println("FROM SERVER:" + modifiedSentence);
+    public static void main(String[] args)throws Exception {
+        Scanner scanner = new Scanner(System.in);
+            String message;
+            byte[] sendData = new byte[1024];
+            int port = 9999;
+            InetAddress ipAddress = InetAddress.getByName("localhost");
+            DatagramSocket clientSocket= new DatagramSocket();
+            ReceiveThread client  =new ReceiveThread (clientSocket ,port, ipAddress);
+            client.start();
+            sendData = "Client connected".getBytes();
+            DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, ipAddress, port);
+            clientSocket.send(sendPacket);
+            while(true) {
+            message = scanner.nextLine();
+            sendData = message.getBytes();
+            sendPacket = new DatagramPacket(sendData, sendData.length, ipAddress, port);
+            clientSocket.send(sendPacket);
+            if(message.contains("@quit")){
+                break;
             }
         }
-            catch  (IOException e) {
-               System.out.println(e.toString());
-        }
-    }
-    public static void main(String[] args)throws Exception {
-        Client user = new Client();
-        user.clientSocket= new DatagramSocket();
-        BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
-        String sentence = inFromUser.readLine();
-        InetAddress ipAddress = InetAddress.getByName("localhost");
-        byte[] sendData = new byte[1024];
-        sendData = sentence.getBytes();
-        user.start();
-        while(true) {
-             inFromUser = new BufferedReader(new InputStreamReader(System.in));
-            sentence = inFromUser.readLine();
-            sendData = new byte[1024];
-            sendData = sentence.getBytes();
-            DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, ipAddress, 9999);
-            user.clientSocket.send(sendPacket);
-            user.clientSocket.close();
-        }
-
     }
 }

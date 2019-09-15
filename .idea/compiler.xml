@@ -6,13 +6,26 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Dop8" />
+        <module name="Additional-Task8" />
+        <module name="Additional-Task9" />
+        <module name="AdditionalTask8" />
+        <module name="AdditionalTask9" />
+        <module name="Lab-Work11" />
+        <module name="Lab-Work11-Client" />
+        <module name="Lab-Work11-Server" />
+        <module name="Lab-Work13" />
+        <module name="Lab-Work8" />
         <module name="Lab-Work9" />
+        <module name="lab9" />
         <module name="LabWork11" />
+        <module name="LabWork11Client" />
+        <module name="LabWork11Server" />
+        <module name="LabWork13" />
         <module name="LabWork8" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="Dop-Task8" target="7" />
       <module name="Dop8" target="1.5" />
     </bytecodeTargetLevel>
   </component>

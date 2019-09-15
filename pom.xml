@@ -12,6 +12,11 @@
         <module>Lab-Work8</module>
         <module>Lab-Work9</module>
         <module>Lab-Work11</module>
+        <module>Additional-Task8</module>
+        <module>Additional-Task9</module>
+        <module>Lab-Work11-Server</module>
+        <module>Lab-Work11-Client</module>
+        <module>Lab-Work13</module>
     </modules>
 
     <dependencies>
